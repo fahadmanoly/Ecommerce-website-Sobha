@@ -1,0 +1,91 @@
+
+{% extends 'base.html' %} {% block content %}
+<header>
+  <div class="text-center">
+    <h1 class="text-dark">ADMIN PANEL</h1>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid justify-content-between">
+        <button type="button" class="btn btn-secondary">
+          <a class="text-light" href="#" style="text-decoration: none">Home</a>
+        </button>
+        <form action="search_user"  method="post"  class="d-flex">
+          {% csrf_token %}
+          <input class="form-control me-2"  name='searched_data' type="search" placeholder="Search" aria-label="Search" required>
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <button type="button" class="btn btn-danger">
+          <a class="text-light" href="{% url 'admin_home' %}"style="text-decoration: none"
+            >Back</a>
+        </button>
+      </div>
+    </nav>
+    <hr class="border border-dark" />
+    <div class="row text-center">
+      <div
+        class="div d-flex col-6 justify-content-between"
+        style="float: left"
+      ></div>
+      <div
+        class="div d-flex col-6 justify-content-center"
+        style="float: left"
+      ></div>
+    </div>
+  </div>
+</header>
+<div>
+  <table class="table">
+    <table_head>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">User Name</th>
+        <th scope="col">First Name</th>
+        <th scope="col">email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Address</th>
+        <th scope="col">City</th>
+        <th scope="col">District</th>
+        <th scope="col">Pincode</th>
+        <th scope="col">State</th>
+      </tr>
+    </table_head>
+
+    <table_body>
+      {% for user in users %}
+      <tr>
+        <th scope="row"><h4>{{user.id}}</h4></th>
+        <td>{{user.user_name}}</td>
+        <td>{{user.first_name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.phone_number}}</td>
+        <td>{{user.address}}</td>
+        <td>{{user.city}}</td>
+        <td>{{user.district}}</td>
+        <td>{{user.pincode}}</td>
+        <td>{{user.state}}</td>
+
+
+        <td>
+          
+          {% if user.user_name.is_active %}
+          <button type="button" class="btn btn-danger"
+            onclick="return confirm('Do you want to block {{user.first_name}} ?')">
+            <a class="text-light" href="block_user!{{user.user_name.pk}}" style="text-decoration: none">Block</a>
+          </button>
+          {% else %}
+          <button type="button" class="btn btn-success"
+            onclick="return confirm('Do you want to Unblock {{user.user_name}} ?')">
+            <a class="text-light" href="block_user!{{user.user_name.pk}}" style="text-decoration: none">Unblock</a>
+          </button>
+          {% endif %}
+          
+        </td>
+      </tr>
+      
+      {% endfor %}
+      
+
+    </table_body>
+  </table>
+  <h2 class="text-danger text-center">{{m}}</h2>
+</div>
+{% endblock %}

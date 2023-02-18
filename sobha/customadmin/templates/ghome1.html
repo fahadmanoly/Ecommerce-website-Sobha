@@ -1,0 +1,33 @@
+{% extends 'gbase.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block banner_slider %}
+<!--Banner Slider-->
+ <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'customadmin/images/watch base.webp' %}" class="d-block w-100" alt="..."> 
+    </div>
+  </div>
+</div>
+<!-- End Banner Slider -->
+{% endblock banner_slider %}
+
+
+
+{% block main-content %}
+<!-- 1st Product Slider -->
+<div class="m-3">
+ {% comment %} <h2>{{b.brand.brand_name}}</h2> {% endcomment %}
+ <!-- Slider 1 -->
+ <div class="owl-carousel" id="slider1">
+  {% for b in brand %}
+    <a href="{% url 'product_detail' b.id %}" class="btn"><div class="item"><img src="{{b.product_image.url}}" alt="" height="300px"><span class="fw-bold">{{b.title}}</span><br><span class="fs-5">INR {{b.offer_price}}</span></div></a>
+  {% endfor %}
+ </div>
+</div>
+<!-- End 1st Product Slider -->
+
+
+{% endblock main-content %}

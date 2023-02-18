@@ -1,0 +1,55 @@
+{% extends 'gbase.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block banner_slider %}
+<!--Banner Slider-->
+ <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'customadmin/images/watch base.webp' %}" class="d-block w-100" alt="..."> 
+    </div>
+  </div>
+</div>
+<!-- End Banner Slider -->
+{% endblock banner_slider %}
+
+
+
+{% block main-content %}
+<!-- 1st Product Slider -->
+<div class="m-3">
+ <h2>Watches for Men</h2>
+ <!-- Slider 1 -->
+ <div class="owl-carousel" id="slider1">
+  {% for b in watches_for_men %}
+    <a href="{% url 'product_detail' b.id b.brand.brand_name %}" class="btn"><div class="item"><img src="{{b.product_image.url}}" alt="" height="300px"><span class="fw-bold">{{b.title}}</span><br><span class="fs-5">INR {{b.offer_price}}</span></div></a>
+  {% endfor %}
+ </div>
+</div>
+<!-- End 1st Product Slider -->
+
+<!-- 2nd Product Slider -->
+<div class="mx-3">
+ <h2>Watches for Women</h2>
+ <!-- Slider 2 -->
+ <div class="owl-carousel" id="slider2">
+  {% for n in watches_for_women %}
+    <a href="{% url 'product_detail' n.id n.brand.brand_name %}" class="btn"><div class="item"><img src="{{n.product_image.url}}" alt="" height="300"><span class="fw-bold">{{n.title}}</span><br><span class="fs-5">INR {{n.offer_price}}</span></div></a>
+  {% endfor %}
+ </div>
+</div>
+<!-- End 2nd Product Slider -->
+
+<!-- 3rd Product Slider -->
+<div class="mx-3">
+ <h2>Watches for Unisex</h2>
+ <!-- Slider 3 -->
+ <div class="owl-carousel" id="slider3">
+  {% for m in watches_for_unisex %}
+    <a href="{% url 'product_detail' m.id m.brand.brand_name %}" class="btn"><div class="item"><img src="{{m.product_image.url}}" alt="" height="300"><span class="fw-bold">{{m.title}}</span><br><span class="fs-5">INR {{m.offer_price}}</span></div></a>
+  {% endfor %}
+ </div>
+</div>
+<!-- End 2nd Product Slider -->
+{% endblock main-content %}

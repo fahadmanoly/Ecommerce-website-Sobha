@@ -1,0 +1,314 @@
+{% extends 'baseadmin1.html' %}
+
+{% load static %}
+    {% block content %}
+    <div class="content">
+            <!-- Sale & Revenue Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row">
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <div class="ms-3">
+                                <p class="mb-2">Total Orders</p>
+                                <h6 class="mb-0">{{total_order}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="col-sm-5 col-xl-4">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <div class="ms-3">
+                                <p class="mb-2">Total Products Ordered</p>
+                                <h6 class="mb-0">{{total_product_qty}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %} <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-chart-area fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">Total Orders</p>
+                                <h6 class="mb-0"><i class="fa fa-inr" style="font-size:20px"></i>{{total_product_qty}} Orders</h6>
+                            </div>
+                        </div>
+                    </div> {% endcomment %}
+                    {% comment %} <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <div class="ms-3">
+                                <span class="primary">Sales</span>
+                                <a href="" class="btn border border-primary">Report</a>
+                            </div>
+                        </div>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+            <!-- Sale & Revenue End -->
+
+
+            <!-- Sales Chart Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-8 col-xl-8">
+                        <div class="bg-light text-center rounded p-4">
+                            <h6 class="mb-0">Product Sales by Brand</h6>
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                
+                                <canvas id="myChart"></canvas>
+                                  
+                                  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                  
+                                  <script>
+                                    const ctx = document.getElementById('myChart');
+                                    
+                                    console.log(false)
+
+                                    new Chart(ctx, {
+                                      type: 'bar',
+                                      data: {
+                                        labels: [
+                                            {% for x in category %}
+                                                "{{x.brand_name}}",
+                                            {% endfor %}
+                                        ],
+                                        datasets: [{
+                                          label: 'Category Report',
+                                          data: {{barlist}},
+                                          borderColor:'green',
+                                          backgroundColor:['#89db37','#d44255','#279e15','#1aa2c4','#611ac4','#ebc583','#3d89d1','#e645ff','#c0db23'],
+                                          borderWidth: 3
+                                        }]
+                                      },
+                                      options: {
+                                        scales: {
+                                          y: {
+                                            beginAtZero: true
+                                          }
+                                        }
+                                      }
+                                    });
+                                  </script>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-sm-8 col-xl-9">
+                        <div class="bg-light text-center rounded p-4">
+                            <h6 class="mb-0">Product Sales </h6>
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                           
+
+                                <canvas id="myCharts"></canvas>
+                            
+                            
+                            <script>
+                                const ctxs = document.getElementById('myCharts');
+                            console.log(true)
+                                new Chart(ctxs, {
+                                type: 'bar',
+                                data: {
+                                    labels:  [
+                                    'January', 'February', 'March',
+                                    'April', 'May', 'June', 'July', 'August',
+                                    'September', 'October', 'November', 'December'
+                                    ],
+                                    datasets: [{
+                                    label: 'Monthly Report',
+                                    data: {{salespermonth}},
+                                    borderColor:'green',
+                                    backgroundColor:['#89db37','#89db37','#d44255','#311436','#279e15','#edc7ca','#c49c1a','#1aa2c4','#611ac4','#ebc583','#3d89d1','#e645ff'],
+                                    borderWidth: 3
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                    }
+                                }
+                                });
+                            </script>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sales Chart End -->
+
+
+
+
+            {% comment %} <!-- Recent Sales Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Recent Sale</h6>
+                        <a href="">Show All</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">User Name</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Product QTY</th>
+                                    <th scope="col">Product Price</th>
+                                    <th scope="col">Order Status</th>
+                                    <th scope="col">Payment Type</th>
+                                    <th scope="col">Payment Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for list in order_details %}
+                                
+                                <tr>
+                                    <th scope="row">{{forloop.counter}}</th>
+                                    <td>{{users.email}}</td>
+                                    <td>{{list.product.product_name}}</td>
+                                    <td>{{list.quantity}}</td>
+                                    <td>{{list.product_price}}</td>
+                                    <td>{{list.ordered}}</td>
+
+                                    {% if list.payment.payment_method == 'cod' %}<td>Cash On Delivery</td>{% endif %}
+                                    {% if list.payment.payment_method == 'Paypal' %}<td>Online Payment</td>{% endif %}
+                                    
+                                    {% if list.order.is_ordered %}<td>Payment Success</td>{% else %}<td>Payment Pending</td>{% endif %}
+                                
+                                </tr>
+                                
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+            <!-- Recent Sales End -->
+
+
+            {% comment %} <!-- Widgets Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="h-100 bg-light rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h6 class="mb-0">Messages</h6>
+                                <a href="">Show All</a>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Jhon Doe</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                    <span>Short message goes here...</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Jhon Doe</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                    <span>Short message goes here...</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Jhon Doe</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                    <span>Short message goes here...</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center pt-3">
+                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Jhon Doe</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                    <span>Short message goes here...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="h-100 bg-light rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">Calender</h6>
+                                <a href="">Show All</a>
+                            </div>
+                            <div id="calender"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="h-100 bg-light rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">To Do List</h6>
+                                <a href="">Show All</a>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <input class="form-control bg-transparent" type="text" placeholder="Enter task">
+                                <button type="button" class="btn btn-primary ms-2">Add</button>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-2">
+                                <input class="form-check-input m-0" type="checkbox">
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 align-items-center justify-content-between">
+                                        <span>Short task goes here...</span>
+                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-2">
+                                <input class="form-check-input m-0" type="checkbox">
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 align-items-center justify-content-between">
+                                        <span>Short task goes here...</span>
+                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-2">
+                                <input class="form-check-input m-0" type="checkbox" checked>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 align-items-center justify-content-between">
+                                        <span><del>Short task goes here...</del></span>
+                                        <button class="btn btn-sm text-primary"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-2">
+                                <input class="form-check-input m-0" type="checkbox">
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 align-items-center justify-content-between">
+                                        <span>Short task goes here...</span>
+                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center pt-2">
+                                <input class="form-check-input m-0" type="checkbox">
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 align-items-center justify-content-between">
+                                        <span>Short task goes here...</span>
+                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Widgets End --> {% endcomment %}
+        </div>
+        {% endblock content %}

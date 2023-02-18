@@ -1,0 +1,85 @@
+{% extends 'baseadmin.html' %}
+{% block content  %}
+
+<form method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Name input -->
+    <div class="form-outline mb-4">
+      <input type="text" id="form4Example1" class="form-control" name="add_product_title"/>
+      <label class="form-label" for="form4Example1">Title</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" id="form4Example1" class="form-control" name="add_price"/>
+        <label class="form-label" for="form4Example1">Price</label>
+    </div>
+    
+    <div class="form-outline mb-4">
+        <input type="text" id="form4Example1" class="form-control" name="add_offer_price"/>
+        <label class="form-label" for="form4Example1">Offer Price</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" id="form4Example1" class="form-control" name="add_description"/>
+        <label class="form-label" for="form4Example1">Description</label>
+    </div>
+
+    <div class="form-outline mb-4">
+        <input type="text" id="form4Example1" class="form-control" name="add_stock"/>
+        <label class="form-label" for="form4Example1">Stock</label>
+    </div>
+
+
+    <div class="form-outline mb-4">
+        {% comment %} <input type="text" id="form4Example1" class="form-control" name="add_category_choices"/> {% endcomment %}
+        <label class="form-label" for="form4Example1">Category</label>
+        {{product.category}}
+    </div>
+
+
+  
+
+    <div class="form-outline mb-4">
+        {% comment %} <input type="text" id="form4Example1" class="form-control" name="add_brand_title"/> {% endcomment %}
+        <label class="form-label" for="form4Example1">Brand</label>
+        <select id="form4Example1" name="add_brand">
+            <option>---select brand---</option>
+            {% for d in data %}
+            <option value={{d.id}}>{{d.brand_name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    
+    {% comment %} <div class="form-outline mb-4">
+        <label class="form-label" for="form4Example1">Product Image</label>
+        <input type="file" id="form4Example1" name="add_image"/>
+        
+      </div> {% endcomment %}
+
+
+    <div class="form-outline mb-4">
+        {% comment %} <input type="text" id="form4Example1" class="form-control" name="add_category_choices"/> {% endcomment %}
+        <label class="form-label" for="form4Example1">Main Image</label>
+        {{product.main_image}}
+    </div>
+
+    <div class="form-outline mb-4">
+        {% comment %} <input type="text" id="form4Example1" class="form-control" name="add_category_choices"/> {% endcomment %}
+        <label class="form-label" for="form4Example1">Images</label>
+        {{multiple_image.image}}
+    </div>
+  
+    
+  
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block mb-4">Save</button>
+  </form>
+
+
+
+          {% endblock  %}
+          {% block script %}
+          <script defer src="https://cdn.crop.guide/loader/l.js?c=NZFMVM"></script>
+
+          {% endblock %}

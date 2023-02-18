@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %} {% block content %}
+<header>
+  <div class="text-center">
+    <h1 class="text-dark">You searched for {{data1}}</h1>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid justify-content-between">
+        <button type="button" class="btn btn-info"><a class="text-light" href="show_orders" style="text-decoration:none;">Back to Orders</a></button>
+        <button type="button" class="btn btn-danger"><a class="text-light" href="admin_home" style="text-decoration:none;">Admin Home</a></button>
+      </div>
+    </nav>
+  </div>
+</header>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Customer</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for o in order_data %}
+      <tr>
+        <th scope="row"><h4>{{o.id}}</h4></th>
+        <td>{{o.customer}}</td>
+        <td>
+          <button type="button" class="btn btn-primary">
+            <a class="text-light" href="edit_orders!{{o.id}}" style="text-decoration: none">Edit</a></button>
+        </td>
+        
+        
+        {% comment %} <td>
+          <button type="button" class="btn btn-danger" onclick="return confirm('Do you want to delete {{customer.Name}} ?')">
+            <a class="text-light" href="delete_order!{{o.id}}" style="text-decoration: none">Delete</a></button>
+        </td> {% endcomment %}
+      </tr>
+      {% endfor %}
+
+
+    </tbody>
+  </table>
+  <h2 class="text-danger text-center">{{m}}</h2>
+</div>
+{% endblock %}

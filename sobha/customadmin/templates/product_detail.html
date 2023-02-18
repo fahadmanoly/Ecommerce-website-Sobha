@@ -1,0 +1,101 @@
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+{% extends 'gbase.html' %}
+{% load static %}
+{% block title %}Product Detail{% endblock title %}
+{% block main-content %}
+<style>
+	.mainImage {	
+		overflow: hidden;
+		margin: 0 auto;
+	}
+
+	.mainImage img {
+		width: 12rem;
+		transition: 0.5s all ease-in-out;
+		padding-top:1rem;
+		padding-bottom:1rem;
+  }
+
+    #navimp{
+      justify-content: display;
+    }
+	
+
+	
+</style>
+<nav id=navimp>
+<div class="container my-5">
+ <div class="row">
+  {% comment %} <div class="col-sm-6 text-center align-self-center thumb-image">
+    <img src="{{product.product_image.url}}" data-imagezoom="true" alt="" class="img-fluid img-thumbnail">
+  </div> {% endcomment %}
+  <div class="col-6">
+    <article class="gallery-wrap">
+      <div class="img-big-wrap mainImage thumb-image">
+        <left><img src="{{ product.product_image.url }}" data-imagezoom="true"></left>
+      </div> <!-- img-big-wrap.// -->
+  
+    </article> <!-- gallery-wrap .end// -->
+    <ul class="thumb">
+      <li>
+        <a href="{{ product.product_image.url }}" target="mainImage">
+          <img src="{{ product.product_image.url }}" alt="Product Image"></a>
+  
+        {% for i in product_gallery %}
+        <a href="{{i.image.url}}" target="mainImage"><img src="{{i.image.url}}"
+            alt="Product Image"></a>
+        {% endfor %}
+      </li>
+    </ul>
+  </div>
+  <div class="col-6">
+   <h2>{{product.title}}</h2>
+   <hr>
+   <p>{{product.description}}</p> <br>
+   <h4>INR {{discounted_price}} <small class="fw-light text-decoration-line-through">INR {{product.offer_price}}</small></h4> <br>
+
+   {% if user.is_authenticated  %}
+    {% if item_already_in_cart  %}
+     <a href="{% url 'showcart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Go to Cart</a>
+    {% else %}
+     <form action="/add-to-cart" class="d-inline">
+      <input type="hidden" name="prod_id" value="{{product.id}}" id="prod_id">
+      <input type="hidden" name="bran_id" value="{{product.brand.brand_name}}" id="bran_id">
+      <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+     </form>
+    {% endif %}
+   {% endif %}
+
+   {% if not request.user.is_authenticated %}
+     <form action="/add-to-cart" class="d-inline">
+      {% comment %} <input type="hidden" name="prod_id" value="{{product.id}}" id="prod_id"> {% endcomment %}
+      <button type="submit" class="btn btn-success shadow px-5 py-2">Login to Add to Cart</button>
+     </form>
+   {% endif %}
+
+
+
+   {% comment %} <a href="#" class="btn btn-danger shadow px-5 py-2 ms-4">Add to Wishlist</a> {% endcomment %}
+   <h5 class="mt-5">Available Offers</h5>
+   <ul>
+    <li>Bank Offer - 5% Unlimited Cashback on Axis Bank Credit Card</li>
+    <li>Pay in Instalments. Standard EMI available</li>
+    <li>Get giftcard worth INR 3000.00 on transaction with a Visa Debit/Credit Card</li>
+   </ul>
+  </div>
+ </div>
+</div>
+</nav>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  
+	$(document).ready(function () {
+		$('.thumb a').click(function (e) {
+			e.preventDefault();
+			$('.mainImage img').attr('src', $(this).attr("href"));
+		})
+	})
+</script>
+{% endblock main-content %}
+<script src="{% static 'customadmin/js/imagezoom.js' %}"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>

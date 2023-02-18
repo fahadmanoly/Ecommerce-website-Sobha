@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
+
+{% block main-content %}
+<!-- 1st Product Slider -->
+<div class="m-3">
+ <h2>Sobha Watches For Men</h2>
+ <h1>Sobha Watchesssssssssssssssssssssssssssssssss For Men</h1>
+ 
+ <!-- Slider 1 -->
+ <div class="owl-carousel" id="slider1">
+   {% for b in watches_for_men %}
+     <a href="{% url 'product-detail' b.id %}" class="btn"><div class="item"><img src="{{b.product_images.url}}" alt="" height="300px"><span class="fw-bold">{{b.title}}</span><br><span class="fs-5">Rs. {{b.offer_price}}</span></div></a>
+   {% endfor %}
+ </div>
+</div>
+{% endblock main-content %}
+
+

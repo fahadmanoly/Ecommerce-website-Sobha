@@ -1,0 +1,185 @@
+{% extends 'baseadmin.html' %}
+{% block content %}
+{% load static %}
+
+        <!-- Sale & Revenue Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="row">
+                <div class="col-sm-6 col-xl-3">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                        <i class="fa fa-chart-line fa-3x text-primary"></i>
+                        <div class="ms-3">
+                            <p class="mb-2">Today Order</p>
+                            <h6 class="mb-0">{{total_order}}Products</h6>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="col-sm-6 col-xl-3">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                        <i class="fa fa-chart-area fa-3x text-primary"></i>
+                        <div class="ms-3">
+                            <p class="mb-2">Total Products Ordered</p>
+                            <h6 class="mb-0">{{total_product_qty}} Orders</h6>
+                        </div>
+                    </div>
+                </div>
+                
+                {% comment %} <div class="col-sm-6 col-xl-3">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                        <div class="ms-3">
+                            <span class="primary">Sales</span>
+                            <a href="" class="btn border border-primary">Report</a>
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+            </div>
+        </div>
+        <!-- Sale & Revenue End -->
+
+
+        <!-- Sales Chart Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-8 col-xl-8">
+                    <div class="bg-light text-center rounded p-4">
+                        <h6 class="mb-0">Total Number Of Category Purchase Product</h6>
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            
+                            <canvas id="myChart"></canvas>
+                              
+                              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                              
+                              <script>
+                                const ctx = document.getElementById('myChart');
+                                
+                                console.log(false)
+
+                                new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                    labels: [
+                                        {% for x in category %}
+                                            "{{x.category_name}}",
+                                        {% endfor %}
+                                    ],
+                                    datasets: [{
+                                      label: 'Category Report',
+                                      data: {{barlist}},
+                                      borderColor:'black',
+                                      backgroundColor:['#a1f2ff','#63afff'],
+                                      borderWidth: 1
+                                    }]
+                                  },
+                                  options: {
+                                    scales: {
+                                      y: {
+                                        beginAtZero: true
+                                      }
+                                    }
+                                  }
+                                });
+                              </script>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-sm-8 col-xl-9">
+                    <div class="bg-light text-center rounded p-4">
+                        <h6 class="mb-0">Total Number Of Category Purchase Product</h6>
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                       
+
+                            <canvas id="myCharts"></canvas>
+                        
+                        
+                        <script>
+                            const ctxs = document.getElementById('myCharts');
+                        console.log(true)
+                            new Chart(ctxs, {
+                            type: 'polarArea',
+                            data: {
+                                labels:  [
+                                'January', 'February', 'March',
+                                'April', 'May', 'June', 'July', 'August',
+                                'September', 'October', 'November', 'December'
+                                ],
+                                datasets: [{
+                                label: 'Category Report',
+                                data: {{salespermonth}},
+                                backgroundColor:['#c0db23','#d44255','#89db37','#311436','#279e15','#edc7ca','#c49c1a','#1aa2c4','#611ac4','#ebc583','#3d89d1','#e645ff'],
+                                borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                                }
+                            }
+                            });
+                        </script>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sales Chart End -->
+
+
+
+
+        <!-- Recent Sales Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-light text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Recent Sale</h6>
+                    <a href="">Show All</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">User Name</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Product QTY</th>
+                                <th scope="col">Product Price</th>
+                                <th scope="col">Order Status</th>
+                                <th scope="col">Payment Type</th>
+                                <th scope="col">Payment Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for list in order_details %}
+                            
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{users.email}}</td>
+                                <td>{{list.product.product_name}}</td>
+                                <td>{{list.quantity}}</td>
+                                <td>{{list.product_price}}</td>
+                                <td>{{list.ordered}}</td>
+
+                                {% if list.payment.payment_method == 'cod' %}<td>Cash On Delivery</td>{% endif %}
+                                {% if list.payment.payment_method == 'Paypal' %}<td>Online Payment</td>{% endif %}
+                                
+                                {% if list.order.is_ordered %}<td>Payment Success</td>{% else %}<td>Payment Pending</td>{% endif %}
+                            
+                            </tr>
+                            
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+
+    {% endblock content %}

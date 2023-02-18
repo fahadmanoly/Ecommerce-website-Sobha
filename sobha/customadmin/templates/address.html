@@ -1,0 +1,47 @@
+
+{% extends 'gbase.html' %}
+{% load static %}
+{% block title %}Address{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+ <h3>Welcome <span class="text-capitalize">{{request.user}}</span></h3>
+  <div class="col-sm-2 border-end">
+   <ul class="list-unstyled">
+    <li class="d-grid"><a href="{% url 'profile' %}" class="btn">Add Address</a></li>
+    <li class="d-grid"><a href="{% url 'address' %}" class="btn btn-success" {{active}}">Address</a></li>
+   </ul>
+  </div>
+  <div class="col-sm-9 offset-sm-1">
+   <div class="row">
+    {% for ad in add %}
+     <div class="col-sm-6">
+     <div class="card">
+      <div class="card-body">
+       <h3>Address: {{ forloop.counter }}</h3>
+       <p>First Name: {{ad.first_name}}</p>
+       <p>Last Name: {{ad.last_name}}</p>
+       <p>email: {{ad.email}}</p>
+       <p>Phone Number: {{ad.phone_number}}</p>
+       <p>Address: {{ad.address}}</p>
+       <p>City: {{ad.city}}</p>
+       <p>District: {{ad.district}}</p>
+       <p>Pincode: {{ad.pincode}}</p>
+       <p>State: {{ad.state}}</p>
+
+       <tr>
+        <td><button type="button" class="btn btn-success" onclick="return confirm('Do you want to Delete {{ad.first_name}} ?')">
+        <a class="text-light" href="delete_address!{{ad.id}}" style="text-decoration: none">Delete</a></button></td>
+       </tr>
+       
+      </div>
+
+     </div>
+
+    </div>
+    {% endfor %}
+   </div>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

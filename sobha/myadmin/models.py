@@ -7,7 +7,7 @@ from django.urls import reverse
 class Brand(models.Model):
     brand_name = models.CharField(max_length=50)
     offer_active = models.BooleanField(default=False)
-    discount = models.IntegerField(max_length=50, null=True,blank=True)
+    discount = models.IntegerField(null=True,blank=True)
 
     def __str__(self):
         return str(self.id)
@@ -49,15 +49,10 @@ class ProductMultipleImages(models.Model):
 class Coupon(models.Model):
     code = models.CharField(max_length=20)
     is_active = models.BooleanField(default=False)
-    discount_price = models.IntegerField(max_length=50, null=True,blank=True)
+    discount_price = models.IntegerField(null=True,blank=True)
 
     def __str__(self):
         return str(self.id)
 
 
 
-    
-    # class AdminInfo(models.Model):
-#     email= models.CharField(max_length=20)
-#     username=models.CharField(max_length=30)
-#     password=models.TextField()

@@ -20,7 +20,7 @@
         </div>
       </div>
     {% endfor %}
-    <p class="fw-bold">Total Order Costfghgfdfghg(Including Vat) = {{totalcost}}</p>
+    <p class="fw-bold">Total Order Cost(Including Vat) = {{totalcost}}</p>
      <hr>
      <form method="POST" action="{% url 'checkout' %}">
       {% csrf_token %}

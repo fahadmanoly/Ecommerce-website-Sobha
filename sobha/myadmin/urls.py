@@ -7,7 +7,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('',views.admin_login,name='admin_login'),
-    path('admin',views.admin_login,name='admin_login'),
+    path('admin_login',views.admin_login,name='admin_login'),
     path("admin_home",views.index,name='admin_home'),
     path('admin_logout',views.admin_logout,name='admin_logout'),
     path('show_users',views.show_users,name='show_users'),

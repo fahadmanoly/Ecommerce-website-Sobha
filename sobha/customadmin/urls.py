@@ -33,7 +33,7 @@ urlpatterns = [
 
     
 
-    path("user_register",views.user_register,name="user_register"),
+    path("user_register/",views.user_register,name="user_register"),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='login.html', authentication_form=Loginform), name='login'),
     path('accounts/profile/', views.ProfileView.as_view(), name='profile'),
     path("user_homepage",views.user_homepage,name="user_homepage"),

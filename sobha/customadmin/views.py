@@ -31,12 +31,10 @@ def user_register(request):
         new_password2 = request.POST.get('password2')
         if new_password1 == new_password2:
             if User.objects.filter(username=new_username).exists():
-                print(1)
                 message = 'username already exist'
                 return render(request, 'user_register.html',{'message':message})
 
             elif User.objects.filter(email=new_email).exists():
-                print(2)
                 message = 'email already exist'
                 return render(request, 'user_register.html',{'message':message})
             else:

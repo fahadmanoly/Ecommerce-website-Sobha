@@ -1,6 +1,6 @@
 {% extends 'gbase.html' %}
 {% load static %}
-{% block title %}Brands{% endblock title %}
+{% block title %}Category{% endblock title %}
 
 {% block banner_slider %}
 <!--Banner Slider-->
@@ -24,13 +24,12 @@
       <h4 class="mt-4 mb-5"><strong>{{brand_title}}</strong></h4>
       <nav>
         <div class="row ">
-      {% for b in product %}          
+      {% for b in all_product %}          
         <div class="col-md-4 mb-4 ">
           <div class="card">
             <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
               data-mdb-ripple-color="light">
-              <img src="{{b.product_image.url}}"
-                class="w-50" />
+              <img src="{{b.product_image.url}}" class="w-50" />
               <a href="{% url 'product_detail' b.id b.brand.brand_name %}">
                 <div class="mask">
                   <div class="d-flex justify-content-start align-items-end h-100">
@@ -49,7 +48,7 @@
               <a href="" class="text-reset">
                 <p>{{b.category}}</p>
               </a>
-              {% if act is True %}
+              {% if b.brand.offer_active %}
               <h6>Offer Price {{b.price}} <small class="fw-light text-decoration-line-through">INR {{b.offer_price}}</small></h6>
               {% else %}
               <h6 class="mb-3">INR {{b.offer_price}}</h6>

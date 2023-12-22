@@ -38,7 +38,6 @@ def user_register(request):
                 message = 'email already exist'
                 return render(request, 'user_register.html',{'message':message})
             else:
-                print(3)
                 user = User.objects.create_user(
                     username=new_username, first_name=new_first_name, last_name=new_last_name, email=new_email, password=new_password1,is_active=False)
                 user.save()
@@ -123,17 +122,33 @@ class ProfileView(View):
 
 
 # User Homepage
-@never_cache
-def user_homepage(request):
-    if 'username' in request.session:
-        watches_for_men = Product.objects.filter(category='Watches for Men')
-        watches_for_women = Product.objects.filter(category='Watches for Women')
-        watches_for_unisex = Product.objects.filter(category='Watches for Unisex')
-        return render(request, 'ghome.html', {'watches_for_men':watches_for_men, 'watches_for_women':watches_for_women, 'watches_for_unisex':watches_for_unisex })
-    else:
-        return redirect('login')
-         
+# @never_cache
+# def user_homepage(request):
+#     if 'username' in request.session:
+#         watches_for_men = Product.objects.filter(category='Watches for Men')
+#         watches_for_women = Product.objects.filter(category='Watches for Women')
+#         watches_for_unisex = Product.objects.filter(category='Watches for Unisex')
+#         return render(request, 'ghome.html', {'watches_for_men':watches_for_men, 'watches_for_women':watches_for_women, 'watches_for_unisex':watches_for_unisex })
+#     else:
+#         return redirect('login')
 
+# Products displaying by category
+def watches_for_men(request):
+    watches_for_men = Product.objects.filter(category='Watches for Men')
+    return render(request, 'watchesformen.html', {'watches_for_men':watches_for_men })
+
+def watches_for_women(request):
+    watches_for_women = Product.objects.filter(category='Watches for Women')
+    return render(request, 'watchesforwomen.html', {'watches_for_women':watches_for_women })
+
+def watches_for_unisex(request):
+    watches_for_unisex = Product.objects.filter(category='Watches for Unisex')
+    return render(request, 'watchesforunisex.html', {'watches_for_unisex':watches_for_unisex }) 
+
+# Displaying all products
+def all_product(request):
+    all_product = Product.objects.all()
+    return render(request, 'all_product.html', {'all_product':all_product })      
 
 # Landing page
 class Productview(View):
@@ -149,7 +164,6 @@ class Productview(View):
                     p.price = p.offer_price - b.discount
                     p.save()
         return render(request, 'ghome.html', {'watches_for_men':watches_for_men, 'watches_for_women':watches_for_women, 'watches_for_unisex':watches_for_unisex })
-
 
 
 class Brandview(View):
@@ -456,24 +470,6 @@ def delete_address(request,id):
         return redirect('address')
 
 
-
-
-
-
-
-# Brands
-# class Brandview(View):
-#     def get(self, request):
-#         omega = Product.objects.filter(brand='Omega')
-#         rolex = Product.objects.filter(brand='Rolex')
-#         rado = Product.objects.filter(brand='Rado')
-#         tissot = Product.objects.filter(brand='Tissot')
-#         arnold_son = Product.objects.filter(brand='Arnold Son')
-#         girard_perre = Product.objects.filter(brand='Girard Perre')
-#         bvlgari = Product.objects.filter(brand='Bvlgari')
-#         calvin_klein = Product.objects.filter(brand='Calvin Klein')
-#         corum = Product.objects.filter(brand='Corum')
-#         return render(request, 'brand.html', {'omega':omega, 'rolex':rolex, 'rado':rado, 'tissot':tissot, 'arnold_son':arnold_son, 'girard_perre':girard_perre, 'bvlgari':bvlgari, 'calvin_klein':calvin_klein, 'corum':corum})
 
 
 

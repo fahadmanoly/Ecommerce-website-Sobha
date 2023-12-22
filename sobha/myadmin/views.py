@@ -47,7 +47,6 @@ def admin_login(request):
 def index(request):
     if 'username' in request.session:
         chart_data = Orders.objects.all()
-        print(chart_data)
         salespermonth = [0,0,0,0,0,0,0,0,0,0,0,0]
         for a in range(12):
             for b in chart_data:
@@ -57,7 +56,6 @@ def index(request):
 
         category = Brand.objects.all()
         total_order = len(chart_data)
-        print(total_order)
         total_purchase_amount = int()
         total_product_qty = int()
         for data in chart_data:
@@ -71,11 +69,8 @@ def index(request):
             for y in chart_data:
                 p = Product.objects.get(title = y.product.title)
                 if x.brand_name == p.brand.brand_name:
-                    print('3#')
                     n+=1
             barlist.append(n)
-            print(barlist)
-            print(salespermonth)
 
         content = {
             'total_order':total_order,
@@ -101,7 +96,6 @@ def admin_logout(request):
 
 @never_cache
 def show_users(request):
-    # show all users in a table
     if 'username' in request.session:
         users = Customer.objects.all()
         return render(request, 'show_users.html', {"users": users,})

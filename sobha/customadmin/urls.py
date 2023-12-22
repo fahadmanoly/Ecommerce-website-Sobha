@@ -12,8 +12,12 @@ from .forms import Loginform,MyPasswordChangeForm
 urlpatterns = [
     path('', views.Productview.as_view(), name="landing_page"),
     path('brandview/<str:name>', views.Brandview.as_view(), name="brandview"),
+    path("watches_for_men",views.watches_for_men,name="watches_for_men"),
+    path("watches_for_women",views.watches_for_women,name="watches_for_women"),
+    path("watches_for_unisex",views.watches_for_unisex,name="watches_for_unisex"),
+    path("all_product",views.all_product,name="all_product"),
     
-    path('otpverification/<int:userid>/<str:secret>',views.otpverification,name='otpverification'),
+    path('user_register/otpverification/<int:userid>/<str:secret>',views.otpverification,name='otpverification'),
     path('product_detail/<int:pk><str:bname>/', views.get, name='product_detail'),
     # path('product_detail/<int:pk>/', views.ProductDetailView.as_view(), name='product_detail'),
 
@@ -36,7 +40,6 @@ urlpatterns = [
     path("user_register/",views.user_register,name="user_register"),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='login.html', authentication_form=Loginform), name='login'),
     path('accounts/profile/', views.ProfileView.as_view(), name='profile'),
-    path("user_homepage",views.user_homepage,name="user_homepage"),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
 
     path('passwordchange/', auth_views.PasswordChangeView.as_view(template_name='passwordchange.html', form_class=MyPasswordChangeForm, success_url='/passwordchangedone/'), name='passwordchange'),

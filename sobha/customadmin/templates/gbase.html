@@ -34,43 +34,37 @@
            <li class="nav-item">
              <a class="nav-link active text-dark" aria-current="page" href="/">Home</a>
            </li>
-           {% comment %} <li class="nav-item dropdown">
+
+           <li class="nav-item dropdown">
              <a class="nav-link dropdown-toggle text-dark" href="#" id="electronicsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-               Gender</a>
+               Watches by Category</a>
              <ul class="dropdown-menu" aria-labelledby="electronicsDropdown">
-              <li><a class="dropdown-item" href="{%url 'landing_page'%}">Watches for Men</a></li> 
-              <li><a class="dropdown-item" href="#">Watches for Women</a></li>
-              <li><a class="dropdown-item" href="#">Watches for Unisex</a></li>
+              <li><a class="dropdown-item" href="{%url 'all_product'%}">All Product</a></li>
+              <li><a class="dropdown-item" href="{%url 'watches_for_men'%}">Watches for Men</a></li> 
+              <li><a class="dropdown-item" href="{%url 'watches_for_women'%}">Watches for Women</a></li>
+              <li><a class="dropdown-item" href="{%url 'watches_for_unisex'%}">Watches for Unisex</a></li>
              </ul>
-           </li> {% endcomment %}
+           </li> 
 
            
             
            <li class="nav-item dropdown">
              <a class="nav-link dropdown-toggle text-dark" href="" id="fashionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              brand
-             </a>
+              Watches by Brand</a>
              <ul class="dropdown-menu" aria-labelledby="fashionDropdown">
               {% for i in brands %}
 
 
                <li><a class="dropdown-item" href="{%url 'brandview' i.brand_name%}">{{i.brand_name}}</a></li>
-               {% comment %} <li><a class="dropdown-item" href="{%url 'brandview'%}">Rolex</a></li>
-               <li><a class="dropdown-item" href="{%url 'brandview'%}">Rado</a></li>
-               <li><a class="dropdown-item" href="{%url 'brandview'%}">Tissot</a></li>
-               <li><a class="dropdown-item" href="{%url 'brandview'%}">Arnold Son</a></li>
-               <li><a class="dropdown-item" href="{%url 'brandview'%}">Girard Perre</a></li>
-               <li><a class="dropdown-item" href="{%url 'brandview'%}">Bvlgari</a></li>
-               <li><a class="dropdown-item" href="{%url 'brandview'%}">Calvin Klein</a></li>
-               <li><a class="dropdown-item" href="{%url 'brandview'%}">Corum</a></li> {% endcomment %}
+ 
                {% endfor %}
              </ul>
            </li>
          </ul>
-         {% comment %} <form class="d-flex">
+         <form class="d-flex">
            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
            <button class="btn btn-dark text-warning" type="submit">Search</button>
-         </form> {% endcomment %}
+         </form>
          <div>
            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           {% if request.user.is_authenticated %}

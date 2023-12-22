@@ -21,10 +21,10 @@
     </thead>
 
     <tbody>
-      {% for u in brand_data %}
+      {% for u in user_data %}
       <tr>
-        <th scope="row"><h4>{{b.id}}</h4></th>
-        <td>{{b.brand_name}}</td>
+        <th scope="row"><h4>{{u.id}}</h4></th>
+        <td>{{u.user_name}}</td>
         <td>
           <button type="button" class="btn btn-primary">
             <a class="text-light" href="edit_brand!{{b.id}}" style="text-decoration: none">Edit</a></button>
